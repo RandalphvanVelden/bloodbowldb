@@ -17,29 +17,42 @@ type Query {
       "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
       name: String @where(operator: "like")
     ): [User!]! @paginate(defaultCount: 10)
+   
+  teams: [Team!]! @all
+  team(id: Int! @eq): Team @find  
+ " teamsBy??(??: ?? @eq): [Team] @all "
 }
 
 "Account of a person who utilizes this application."
 type User {
-    "Unique primary key."
     id: ID!
-
-    "Non-unique name."
     name: String!
-
-    "Unique email address."
     email: String!
-
-    "When the email was verified."
     email_verified_at: DateTime
-
-    "When the account was created."
     created_at: DateTime!
-
-    "When the account was last updated."
-    updated_at: DateTime!
+    updated_at: DateTime! 
+    teams: [Team!]! @hasMany
 }
 
-type Query{
-  
+type Team {
+  id: ID!
+  teamName: String!          
+  user: User! @belongsTo         
+  baseTeam: String! 
+  players: [Player!]! @hasMany         
 }
+
+type Player {
+  id: ID!
+  playerNr: Int
+  playerName: String!
+  position: String!
+  MA: Int
+  ST: Int
+  AG: Int
+  PA: Int
+  AV: Int
+  value: Int
+  team: Team! @belongsTo 
+}
+

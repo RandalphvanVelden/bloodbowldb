@@ -18,7 +18,6 @@ class CreateTeamsTable extends Migration
             $table->timestamps();
             $table->string('teamName');
             $table->foreignId('user_id');
-            $table->string('type');
             $table->string('baseTeam');
         });
     }
