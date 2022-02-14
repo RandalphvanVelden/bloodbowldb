@@ -24,8 +24,7 @@ class CreatePlayersTable extends Migration
             $table->integer('PA');
             $table->integer('AV');
             $table->integer('value');
-            $table->string('type');
-            $table->unsignedBigInteger('team_id');
+            $table->foreignId('team_id');
 
             $table->timestamps();
         });

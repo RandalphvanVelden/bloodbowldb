@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class BaseSecondary extends Model
 {
     use HasFactory;
+
+    public function basePlayer(){
+        return $this->BelongsTo(BasePlayer::class);
+    }
 }

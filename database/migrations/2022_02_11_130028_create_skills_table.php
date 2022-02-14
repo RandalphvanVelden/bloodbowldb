@@ -17,8 +17,7 @@ class CreateSkillsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('skillName');
-            $table->integer('player_id')->unsigned();
-            $table->foreign('player_id')->references('id')->on('players');
+            $table->foreignId('player_id');
         });
     }
 

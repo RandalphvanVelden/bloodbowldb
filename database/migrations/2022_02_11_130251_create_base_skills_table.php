@@ -17,8 +17,7 @@ class CreateBaseSkillsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('skillName');
-            $table->integer('base_player_id')->unsigned();
-            $table->foreign('base_player_id')->references('id')->on('base_players');
+            $table->foreignId('base_player_id');
         });
     }
 

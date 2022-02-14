@@ -24,8 +24,8 @@ class CreateBasePlayersTable extends Migration
             $table->integer('AV');
             $table->integer('value');
             $table->string('type');
-            $table->integer('base_team_id')->unsigned();
-            $table->foreign('base_team_id')->references('id')->on('base_teams');
+            $table->foreignId('base_team_id');
+ 
         });
     }
 
