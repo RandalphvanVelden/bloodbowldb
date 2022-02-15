@@ -20,7 +20,7 @@ type Query {
    
   teams: [Team!]! @all
   team(id: Int! @eq): Team @find  
- " teamsBy??(??: ?? @eq): [Team] @all "
+
 }
 
 "Account of a person who utilizes this application."

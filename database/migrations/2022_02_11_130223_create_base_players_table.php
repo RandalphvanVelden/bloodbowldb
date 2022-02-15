@@ -16,6 +16,7 @@ class CreateBasePlayersTable extends Migration
         Schema::create('base_players', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->integer('maximum');
             $table->string('position');
             $table->integer('MA');
             $table->integer('ST');
