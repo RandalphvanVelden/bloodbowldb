@@ -19,8 +19,18 @@ type Query {
     ): [User!]! @paginate(defaultCount: 10)
    
   teams: [Team!]! @all
-  team(id: Int! @eq): Team @find  
+  team(id: ID! @eq): Team @find
 
+  players: [Player!]! @all 
+  player(id: ID! @eq): Player @find 
+
+}
+
+type Mutation {
+createTeam(teamName: String!, user_id: ID!, baseTeam: String!): Team! @create
+updateTeam(id: ID!, teamName: String, user_id: ID, baseTeam: String): Team @update
+upsertTeam(id: ID!, teamName: String, user_id: ID, baseTeam: String): Team @upsert
+deleteTeam(id: ID!): Team @delete
 }
 
 "Account of a person who utilizes this application."
@@ -37,8 +47,8 @@ type User {
 type Team {
   id: ID!
   teamName: String!          
-  user: User! @belongsTo         
-  baseTeam: String! 
+  user: User @belongsTo         
+  baseTeam: String 
   players: [Player!]! @hasMany         
 }
 

@@ -1,0 +1,17 @@
+createTeamB(input: CreateTeamInput! @spread): Team @create
+
+
+}
+input CreateTeamInput {
+teamName: String!
+user_id: CreateUserBelongsTo
+baseTeam: String!
+}
+input CreateUserBelongsTo{
+connect: ID
+create: CreateUserInput
+
+}
+input CreateUserInput{
+name: String!
+}
