@@ -3,26 +3,21 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 
 "Indicates what fields are available at the top level of a query operation."
 type Query {
-    "Find a single user by an identifying attribute."
+  me: User! @auth
     user(
       "Search by primary key."
       id: ID @eq @rules(apply: ["prohibits:email", "required_without:email"])
-
       "Search by email address."
       email: String @eq @rules(apply: ["prohibits:id", "required_without:id", "email"])
     ): User @find
 
-    "List multiple users."
-    users(
-      "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
-      name: String @where(operator: "like")
-    ): [User!]! @paginate(defaultCount: 20)
-  me: User @auth
-  teams: [Team!]! @all
-  team(id: ID! @eq): Team @find
+    users(name: String @where(operator: "like")): [User!]! @paginate(defaultCount: 20) 
+  
+    teams: [Team!]! @all
+    team(id: ID! @eq): Team @find
 
-  players: [Player!]! @all 
-  player(id: ID! @eq): Player @find 
+    players: [Player!]! @all 
+    player(id: ID! @eq): Player @find 
 
 }
 
@@ -36,7 +31,24 @@ createUser(
       email: String! @rules(apply: ["email", "unique:users"]),
       password: String! @rules(apply:["min:6"])@hash
       ): User! @create
+deleteUser(id: ID!): User @delete
+
+createPlayer(
+playerNr: Int, 
+playerName: String!,
+  position: String!,
+  MA: Int,
+  ST: Int,
+  AG: Int,
+  PA: Int,
+  AV: Int,
+  value: Int,
+  team_id: ID ): Player! @create
+deletePlayer( id: ID!): Player @delete 
 }
+
+
+
 
 "Account of a person who utilizes this application."
 type User {
@@ -52,7 +64,7 @@ type User {
 type Team {
   id: ID!
   teamName: String!          
-  user: User @belongsTo         
+  user: User! @belongsTo         
   baseTeam: String 
   players: [Player!]! @hasMany         
 }

@@ -1,15 +1,18 @@
+extend Type Query @middleware(checks: "auth.api"){
 type Query {
 teams: [Team!]! @all
   team(id: ID! @eq): Team @find
   }
+  }
 
+extend type Mutation @middleware(checks: "App\\Http\\Middleware\\GraphQlAuth"){
 type Mutation {
 createTeam(teamName: String!, user_id: ID!, baseTeam: String!): Team! @create
 updateTeam(id: ID!, teamName: String, user_id: ID, baseTeam: String): Team @update
 upsertTeam(id: ID!, teamName: String, user_id: ID, baseTeam: String): Team @upsert
 deleteTeam(id: ID!): Team @delete
 }
-
+}
 
 type Team {
   id: ID!

@@ -11,7 +11,7 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * The policy mappings for the application.
      *
-     * @var array<class-string, class-string>
+     * @var array class-string>
      */
     protected $policies = [
          'App\Models\Model' => 'App\Policies\ModelPolicy',
@@ -28,6 +28,10 @@ class AuthServiceProvider extends ServiceProvider
 
         if (! $this->app->routesAreCached()) {
             Passport::routes();
+
+            Passport::tokensExpireIn(now()->addHours(1));
+            Passport::refreshTokensExpireIn(now()->addHours(2));
+            Passport::personalAccessTokensExpireIn(now()->addMonths(1));
         }
         //
     }
